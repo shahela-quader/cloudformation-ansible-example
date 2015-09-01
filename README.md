@@ -106,9 +106,10 @@ Finally, automate the installation of a new Drupal instance using Ansible Playbo
 ansible-playbook DrupalCloudFormation.yaml
 ```
 
-Check the information about all the relevant EC2 instances:
+Check the information about the relevant EC2 instances with the following commands:
 
 ```
+aws cloudformation describe-stacks --stack-name DrupalWebsite
 aws ec2 describe-instances
 ```
 
