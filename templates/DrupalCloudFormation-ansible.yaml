@@ -1,0 +1,21 @@
+---
+- name: Launch a Drupal single instance CloudFormation stack
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+  - name: Launch a CloudFormation stack
+    cloudformation: >
+      stack_name="MyDrupal"
+      state=present
+      region=us-east-1
+      disable_rollback=true
+      template=Drupal_Single_Instance.template
+    args:
+      template_parameters:
+        KeyName: MyDrupalKey
+        SiteName: "My Drupal Website"
+    register: stack
+  - name: Show stack outputs
+    debug: msg="My stack outputs are {{stack.stack_outputs}}"
