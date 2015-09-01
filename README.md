@@ -1,6 +1,6 @@
 CloudFormation example to create Ansible build server and automate Drupal Installation on target EC2 instance using Ansible Playbook.
 --------
-This main objective of this example is to install Ansible build server on an EC2 instance from scratch using a custom CloudFormation template that also creates a new VPC, Subnets, Elastic IP, Security Group, and other resources. We will then use this new Ansible build instance to automate the installation of basic Drupal website in the target EC2 instance running on Amazon Linux. 
+This main objective of this example is to install Ansible build server on an EC2 instance from scratch using a custom CloudFormation template that also creates a new VPC, Subnets, Elastic IP, Security Group, and other resources. We will then use this new Ansible build instance to automate the installation of basic Drupal website in the target EC2 instance running on Amazon Linux using Ansible Playbook. 
 
 
 ### Assumptions:
