@@ -13,7 +13,7 @@ Ansible is a simple, agentless way to automate your infrastructure. If you find 
 
 ### Installation (source ansible-build-server):
 
-The first step is to create an EC2 KeyPair and create all the resources that we need using this custom cloudformation template cloudformation-ansible-build-server.json.
+The first step is to create an EC2 KeyPair and create all the resources that we need using these custom cloudformation template cloudformation-ansible-build-server.json (with EIP assigned) or cloudformation-ansible-build-server-no-eip.json (With Public IP address assigned) files.
 
 ```
 aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text > MyKeyPair.pem
