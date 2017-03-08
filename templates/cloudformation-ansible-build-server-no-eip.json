@@ -1,8 +1,5 @@
 {
-  "AWSTemplateFormatVersion" : "2010-09-09",
-
-  "Description" : "Ansible build server by Yasin",
-
+  
   "Parameters" : {
     "KeyName" : {
       "Description" : "Name of an existing EC2 Keypair to enable SSH access into the server",
@@ -91,7 +88,7 @@
     },
   "Resources" : {
 
-    "YasVPC" : {
+    "NEWVPC" : {
       "Type" : "AWS::EC2::VPC",
       "Properties" : {
         "CidrBlock" : "10.0.0.0/16",
@@ -101,10 +98,10 @@
       }
     },
 
-    "YasVPCSubnet" : {
+    "NEWVPCSubnet" : {
       "Type" : "AWS::EC2::Subnet",
       "Properties" : {
-        "VpcId" : { "Ref" : "YasVPC"  },
+        "VpcId" : { "Ref" : "NEWVPC"  },
         "CidrBlock" : "10.0.0.0/24",
         "Tags" : [ {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} } ]
       }
@@ -120,7 +117,7 @@
     "AttachGateway" : {
        "Type" : "AWS::EC2::VPCGatewayAttachment",
        "Properties" : {
-         "VpcId" : { "Ref" : "YasVPC" },
+         "VpcId" : { "Ref" : "NEWVPC" },
          "InternetGatewayId" : { "Ref" : "InternetGateway" }
        }
     },
@@ -128,7 +125,7 @@
     "RouteTable" : {
       "Type" : "AWS::EC2::RouteTable",
       "Properties" : {
-        "VpcId" : {"Ref" : "YasVPC"},
+        "VpcId" : {"Ref" : "NEWVPC"},
         "Tags" : [ {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} } ]
       }
     },
@@ -146,14 +143,14 @@
     "SubnetRouteTableAssociation" : {
       "Type" : "AWS::EC2::SubnetRouteTableAssociation",
       "Properties" : {
-        "SubnetId" : { "Ref" : "YasVPCSubnet" },
+        "SubnetId" : { "Ref" : "NEWVPCSubnet" },
         "RouteTableId" : { "Ref" : "RouteTable" }
       }
     },
     "InstanceSecurityGroup" : {
       "Type" : "AWS::EC2::SecurityGroup",
       "Properties" : {
-        "VpcId" : { "Ref" : "YasVPC" },
+        "VpcId" : { "Ref" : "NEWVPC" },
         "GroupDescription" : "Enable SSH access via port 22",
         "SecurityGroupIngress" : [
           {"IpProtocol" : "tcp", "FromPort" : "22", "ToPort" : "22", "CidrIp" : "0.0.0.0/0"},
@@ -170,7 +167,7 @@
                  "NetworkInterfaces" : [{
                  "AssociatePublicIpAddress" : "True",
                  "DeleteOnTermination" : "True",
-                 "SubnetId" : { "Ref" : "YasVPCSubnet" },
+                 "SubnetId" : { "Ref" : "NEWVPCSubnet" },
                  "DeviceIndex" : "0",
                  "GroupSet" : [ { "Ref" : "InstanceSecurityGroup" } ]
             }],
@@ -188,7 +185,7 @@
                        "yum install -y ansible --enablerepo=epel\n",
                        "pip install ansible\n",
                        "cd /\n",
-                       "git clone git://github.com/ansible/ansible.git --recursive\n",
+                       "git clone git://github.com/shahela-quader/ansible.git --recursive\n",
                        "cd /ansible\n",
                        "source hacking/env-setup"
         ]]}}
